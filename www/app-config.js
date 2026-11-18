@@ -1,5 +1,5 @@
 window.ATLAS_HUB = {
-  version: "1.3.0",
+  version: "1.3.1",
   githubOwner: "alid67-git",
   githubRepo: "AtlasHub",
   releaseTagPrefix: "hub-v",
@@ -83,20 +83,12 @@ window.ATLAS_HUB = {
   ],
   tools: [
     {
-      id: "english",
-      name: "English",
-      blurb: "english-ogrenme",
-      url: "https://github.com/alid67-git/english-ogrenme",
-      mark: "EN",
-      tone: "violetish",
-    },
-    {
-      id: "tayca",
-      name: "Tayca v3",
-      blurb: "Tayca öğrenme",
-      url: "https://github.com/alid67-git/tayca-v3",
-      mark: "TY",
-      tone: "sand",
+      id: "cudy",
+      name: "Cudy Türkiye",
+      blurb: "www.cudyturkiye.com",
+      url: "https://www.cudyturkiye.com",
+      mark: "CT",
+      tone: "",
     },
     {
       id: "gpx-edit",
@@ -106,6 +98,16 @@ window.ATLAS_HUB = {
       mark: "GX",
       tone: "sky",
     },
+    {
+      id: "isleyis",
+      name: "İşleyiş Tablosu",
+      blurb: "Güncel işleyiş",
+      url: "https://github.com/alid67-git/Guncel_Isleyis_Tablosu",
+      mark: "IT",
+      tone: "amber",
+    },
+  ],
+  wipTools: [
     {
       id: "price-tracker",
       name: "Price Tracker",
@@ -121,22 +123,6 @@ window.ATLAS_HUB = {
       url: "https://github.com/alid67-git/video-edit",
       mark: "VE",
       tone: "rose",
-    },
-    {
-      id: "cudy",
-      name: "Cudy Türkiye",
-      blurb: "CudyTurkiye",
-      url: "https://github.com/alid67-git/CudyTurkiye",
-      mark: "CT",
-      tone: "",
-    },
-    {
-      id: "isleyis",
-      name: "İşleyiş Tablosu",
-      blurb: "Güncel işleyiş",
-      url: "https://github.com/alid67-git/Guncel_Isleyis_Tablosu",
-      mark: "IT",
-      tone: "amber",
     },
   ],
   games: [

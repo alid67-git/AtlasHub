@@ -1,5 +1,5 @@
 (function () {
-  var cfg = window.ATLAS_HUB || { apps: [], tools: [], games: [], version: "0.0.0" };
+  var cfg = window.ATLAS_HUB || { apps: [], tools: [], wipTools: [], games: [], version: "0.0.0" };
   var pendingItem = null;
 
   function setAppHeight() {
@@ -168,6 +168,7 @@
 
   fill("apps-grid", withKind(cfg.apps, "app"), "app");
   fill("tools-grid", withKind(cfg.tools, "tool"), "tool");
+  fill("wip-tools-grid", withKind(cfg.wipTools, "tool"), "tool");
   fill("games-grid", withKind(cfg.games, "game"), "game");
 
   var btnInstall = document.getElementById("btn-install");
