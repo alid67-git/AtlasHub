@@ -1,5 +1,9 @@
 window.ATLAS_HUB = {
-  version: "1.2.0",
+  version: "1.3.0",
+  githubOwner: "alid67-git",
+  githubRepo: "AtlasHub",
+  releaseTagPrefix: "hub-v",
+  apkNamePattern: /AtlasHub-.*\.apk$/i,
   apkReleaseUrl: "https://github.com/alid67-git/AtlasHub/releases/latest",
   dncrHubUrl: "https://alid67-git.github.io/DNCR-Games/",
   apps: [

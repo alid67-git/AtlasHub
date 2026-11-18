@@ -33,4 +33,8 @@ cd android && ./gradlew assembleDebug
 # → android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Menü içeriği: `www/app-config.js` (Capacitor) · GitHub Pages: `docs/`
+Android hub APK açılışta GitHub Releases’i kontrol eder (`hub-v*` + `AtlasHub-*.apk`).
+Yeni sürüm varsa MedyaAtlas tarzı diyalog → indir → kur. Elle:
+**Güncellemeyi kontrol et**.
+
+Menü: `www/app-config.js` · Pages: `docs/` · sürüm: `www/version.json`
