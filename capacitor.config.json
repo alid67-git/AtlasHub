@@ -1,0 +1,15 @@
+{
+  "appId": "com.dncr.atlashub",
+  "appName": "Atlas Hub",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  },
+  "plugins": {
+    "Browser": {}
+  }
+}
