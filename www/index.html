@@ -75,38 +75,44 @@
     .brand {
       flex: 0 0 auto;
       text-align: center;
-      margin: 0.1rem 0 0.75rem;
+      margin: 0.25rem 0 0.85rem;
       animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
-    .brand img {
-      width: min(96px, 26vw);
-      height: auto;
-      border-radius: 26%;
-      box-shadow:
-        0 16px 36px rgba(0, 0, 0, 0.42),
-        0 0 0 1px rgba(62, 207, 188, 0.3);
+    .logo-mark {
+      margin: 0;
+      line-height: 0.95;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
+    }
+    .logo-mark .logo-atlas {
+      display: block;
+      font-family: var(--display);
+      font-size: clamp(2.55rem, 11vw, 3.35rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      color: #f4efe6;
+    }
+    .logo-mark .logo-hub {
+      display: block;
+      margin-top: 0.08rem;
+      font-family: var(--font);
+      font-size: clamp(2.1rem, 9vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--accent);
     }
     .byline {
-      margin: 0.55rem 0 0;
-      font-size: 0.78rem;
+      margin: 0.7rem 0 0;
+      font-size: 0.8rem;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       color: rgba(238, 246, 244, 0.58);
     }
     .byline strong {
       color: var(--accent-2);
       font-weight: 700;
     }
-    h1 {
-      margin: 0.55rem 0 0.25rem;
-      font-family: var(--display);
-      font-size: clamp(2rem, 8.5vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--accent);
-    }
     .lede {
-      margin: 0;
+      margin: 0.45rem 0 0;
       color: var(--muted);
       font-size: 0.98rem;
       font-weight: 500;
@@ -330,9 +336,11 @@
 <body>
   <main>
     <header class="brand">
-      <img src="assets/logo.png" width="96" height="96" alt="Atlas Hub" />
+      <h1 class="logo-mark">
+        <span class="logo-atlas">Atlas</span>
+        <span class="logo-hub">Hub</span>
+      </h1>
       <p class="byline">by <strong>DNCR Software</strong></p>
-      <h1>Atlas Hub</h1>
       <p class="lede">Projelerini seç · oyunlar aşağıda</p>
     </header>
 
