@@ -38,4 +38,22 @@
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Android 11+: detect / launch installed DNCR apps -->
+    <queries>
+        <package android:name="com.rideatlas.rideatlas" />
+        <package android:name="com.dayatlas.app" />
+        <package android:name="com.medyaatlas.medyaatlas_mobile" />
+        <package android:name="app.expenseatlas" />
+        <package android:name="io.alid67.kolaydilogren" />
+        <package android:name="com.dncr.games" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="package" />
+        </intent>
+    </queries>
 </manifest>

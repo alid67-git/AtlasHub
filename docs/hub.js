@@ -1,5 +1,6 @@
 (function () {
   var cfg = window.ATLAS_HUB || { apps: [], tools: [], games: [], version: "0.0.0" };
+  var pendingItem = null;
 
   function setAppHeight() {
     var h =
@@ -27,23 +28,94 @@
     return !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
   }
 
+  function plugins() {
+    return (window.Capacitor && window.Capacitor.Plugins) || {};
+  }
+
   async function openUrl(url) {
     if (!url) return;
     try {
-      if (isCapacitor() && window.Capacitor.Plugins && window.Capacitor.Plugins.Browser) {
-        await window.Capacitor.Plugins.Browser.open({ url: url });
+      if (isCapacitor() && plugins().Browser) {
+        await plugins().Browser.open({ url: url });
         return;
       }
     } catch (_) {}
-    window.location.assign(url);
+    window.open(url, "_blank", "noopener");
+  }
+
+  function packageUrl(packageId) {
+    return "package:" + packageId;
+  }
+
+  async function canLaunchPackage(packageId) {
+    if (!packageId || !isCapacitor() || !plugins().AppLauncher) return false;
+    try {
+      var res = await plugins().AppLauncher.canOpenUrl({ url: packageUrl(packageId) });
+      return !!(res && res.value);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  async function launchPackage(packageId) {
+    if (!packageId || !plugins().AppLauncher) return false;
+    try {
+      await plugins().AppLauncher.openUrl({ url: packageUrl(packageId) });
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function showInstallModal(item) {
+    pendingItem = item;
+    var modal = document.getElementById("install-modal");
+    var title = document.getElementById("install-title");
+    var body = document.getElementById("install-body");
+    var installBtn = document.getElementById("btn-install");
+    var webBtn = document.getElementById("btn-open-web");
+    if (!modal || !item) return;
+    title.textContent = (item.name || "Uygulama") + " kurulu değil";
+    body.textContent =
+      "Bu uygulamayı Android’de çalıştırmak için önce kurmanız gerekiyor. Aşağıdan APK’yı indirip kurabilirsiniz.";
+    installBtn.hidden = !item.installUrl;
+    webBtn.hidden = !item.url;
+    modal.hidden = false;
+  }
+
+  function hideInstallModal() {
+    pendingItem = null;
+    var modal = document.getElementById("install-modal");
+    if (modal) modal.hidden = true;
+  }
+
+  async function launchItem(item) {
+    if (!item) return;
+
+    // Android: native APK varsa aç; yoksa kurulum kısayolu (web-only / oyunlar hariç)
+    if (isCapacitor() && item.packageId && item.installUrl && item.preferNative !== false) {
+      var installed = await canLaunchPackage(item.packageId);
+      if (installed) {
+        var ok = await launchPackage(item.packageId);
+        if (ok) return;
+      }
+      // Oyunlar web’de de çalışır — kurulu değilse siteyi aç
+      if (item.kind === "game" && item.url) {
+        await openUrl(item.url);
+        return;
+      }
+      showInstallModal(item);
+      return;
+    }
+
+    if (item.url) await openUrl(item.url);
   }
 
   function tileEl(item, kind) {
     var a = document.createElement("a");
     a.className = "tile" + (kind === "game" ? " game" : "");
-    a.href = item.url;
+    a.href = item.url || item.installUrl || "#";
     a.rel = "noopener";
-    a.setAttribute("data-url", item.url);
 
     var art = document.createElement("div");
     art.className = "tile-art" + (item.tone ? " " + item.tone : "");
@@ -72,7 +144,7 @@
 
     a.addEventListener("click", function (e) {
       e.preventDefault();
-      openUrl(item.url);
+      launchItem(item);
     });
     return a;
   }
@@ -86,7 +158,38 @@
     });
   }
 
-  fill("apps-grid", cfg.apps, "app");
-  fill("tools-grid", cfg.tools, "tool");
-  fill("games-grid", cfg.games, "game");
+  function withKind(list, kind) {
+    return (list || []).map(function (item) {
+      var copy = Object.assign({}, item);
+      copy.kind = kind;
+      return copy;
+    });
+  }
+
+  fill("apps-grid", withKind(cfg.apps, "app"), "app");
+  fill("tools-grid", withKind(cfg.tools, "tool"), "tool");
+  fill("games-grid", withKind(cfg.games, "game"), "game");
+
+  var btnInstall = document.getElementById("btn-install");
+  var btnWeb = document.getElementById("btn-open-web");
+  var btnClose = document.getElementById("btn-install-close");
+  var modal = document.getElementById("install-modal");
+
+  if (btnInstall) {
+    btnInstall.addEventListener("click", function () {
+      if (pendingItem && pendingItem.installUrl) openUrl(pendingItem.installUrl);
+    });
+  }
+  if (btnWeb) {
+    btnWeb.addEventListener("click", function () {
+      if (pendingItem && pendingItem.url) openUrl(pendingItem.url);
+      hideInstallModal();
+    });
+  }
+  if (btnClose) btnClose.addEventListener("click", hideInstallModal);
+  if (modal) {
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) hideInstallModal();
+    });
+  }
 })();
