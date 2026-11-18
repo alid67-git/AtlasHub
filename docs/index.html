@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Atlas Hub</title>
+  <meta name="theme-color" content="#0b1c24" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Atlas Hub" />
+  <meta name="description" content="Atlas Hub — Ali Dinçer projeleri ve DNCR Games ana menüsü." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #eef6f4;
+      --muted: rgba(238, 246, 244, 0.62);
+      --accent: #3ecfbc;
+      --accent-2: #f0b429;
+      --line: rgba(120, 170, 180, 0.28);
+      --card: rgba(14, 36, 44, 0.78);
+      --font: "Outfit", system-ui, sans-serif;
+      --display: "Fraunces", Georgia, serif;
+      --bg0: #07141a;
+      --bg1: #0b1c24;
+    }
+    * { box-sizing: border-box; }
+    html { height: 100%; overflow: hidden; }
+    body {
+      margin: 0;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: var(--app-height, 100%);
+      max-height: var(--app-height, 100%);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: var(--font);
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 90% 50% at 50% -12%, #1a4a55 0%, transparent 58%),
+        radial-gradient(circle at 92% 18%, rgba(240, 180, 41, 0.16), transparent 34%),
+        radial-gradient(circle at 8% 78%, rgba(62, 207, 188, 0.16), transparent 36%),
+        linear-gradient(168deg, #102832 0%, var(--bg1) 48%, var(--bg0) 100%);
+      padding: max(1rem, env(safe-area-inset-top)) 1.05rem max(0.85rem, env(safe-area-inset-bottom));
+    }
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(rgba(180, 220, 230, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180, 220, 230, 0.07) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
+    }
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(640px, 100%);
+      margin: 0 auto;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .brand {
+      flex: 0 0 auto;
+      text-align: center;
+      margin: 0.1rem 0 0.75rem;
+      animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .brand img {
+      width: min(96px, 26vw);
+      height: auto;
+      border-radius: 26%;
+      box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.42),
+        0 0 0 1px rgba(62, 207, 188, 0.3);
+    }
+    h1 {
+      margin: 0.8rem 0 0.25rem;
+      font-family: var(--display);
+      font-size: clamp(2rem, 8.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+    }
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+    .hub-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      height: 0;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      touch-action: pan-y;
+      padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+    }
+    .section {
+      margin-top: 1.05rem;
+      text-align: left;
+      animation: rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .section:nth-of-type(2) { animation-delay: 0.08s; }
+    .section:nth-of-type(3) { animation-delay: 0.14s; }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin: 0 0 0.55rem;
+      padding: 0 0.1rem;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .section-head span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.68rem;
+    }
+    .tile {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.55rem;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      padding: 0.72rem;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      backdrop-filter: blur(8px);
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.2s ease;
+      min-height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tile:active { transform: scale(0.98); }
+    .tile:hover {
+      border-color: rgba(62, 207, 188, 0.55);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+    .tile.game:hover {
+      border-color: rgba(240, 180, 41, 0.5);
+    }
+    .tile-art {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      object-fit: cover;
+      display: grid;
+      place-items: center;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.03em;
+      color: #082028;
+      background: linear-gradient(145deg, #7ee7d6, #2aa89a);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+      flex: 0 0 auto;
+    }
+    .tile-art img {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+      display: block;
+    }
+    .tile-art.amber { background: linear-gradient(145deg, #ffd978, #e0a020); }
+    .tile-art.sky { background: linear-gradient(145deg, #9ad7ff, #3a8ec4); }
+    .tile-art.rose { background: linear-gradient(145deg, #ffb4c4, #d66a86); }
+    .tile-art.lime { background: linear-gradient(145deg, #d4f08a, #8fbf3a); }
+    .tile-art.sand { background: linear-gradient(145deg, #f3e0b8, #c9a66b); }
+    .tile-art.violetish { background: linear-gradient(145deg, #b8d4ff, #6a8fc4); }
+    .tile strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+    .tile.game strong { color: var(--accent-2); }
+    .tile span {
+      display: block;
+      margin-top: 0.16rem;
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+    .tile-copy { min-width: 0; width: 100%; }
+    .hint {
+      margin: 1.1rem 0 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .hint a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .credit {
+      margin: 0.85rem 0 0.2rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .ver {
+      margin: 0.35rem 0 0;
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: rgba(238, 246, 244, 0.45);
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 360px) {
+      .grid { gap: 0.55rem; }
+      .tile { padding: 0.58rem; }
+      .tile-art { width: 42px; height: 42px; border-radius: 12px; }
+      .tile strong { font-size: 0.92rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="brand">
+      <img src="assets/logo.png" width="96" height="96" alt="Atlas Hub" />
+      <h1>Atlas Hub</h1>
+      <p class="lede">Projelerini seç · oyunlar aşağıda</p>
+    </header>
+
+    <div class="hub-scroll">
+      <section class="section" aria-labelledby="apps-title">
+        <div class="section-head">
+          <h2 id="apps-title">Uygulamalar</h2>
+          <span>canlı</span>
+        </div>
+        <div class="grid" id="apps-grid"></div>
+      </section>
+
+      <section class="section" aria-labelledby="tools-title">
+        <div class="section-head">
+          <h2 id="tools-title">Araçlar</h2>
+          <span>repo / özel</span>
+        </div>
+        <div class="grid" id="tools-grid"></div>
+      </section>
+
+      <section class="section" aria-labelledby="games-title">
+        <div class="section-head">
+          <h2 id="games-title">DNCR Games</h2>
+          <span>8 oyun</span>
+        </div>
+        <div class="grid" id="games-grid"></div>
+      </section>
+
+      <p class="hint">
+        iPhone: Safari → Paylaş → Ana Ekrana Ekle<br />
+        Android APK:
+        <a id="apk-link" href="https://github.com/alid67-git/AtlasHub/releases/latest" target="_blank" rel="noopener">son sürüm</a>
+      </p>
+      <p class="credit">geliştiren Ali Dinçer</p>
+      <p class="ver" id="hub-ver">v1.0.0</p>
+    </div>
+  </main>
+
+  <script src="app-config.js"></script>
+  <script src="hub.js"></script>
+</body>
+</html>

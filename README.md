@@ -27,9 +27,10 @@ APK: `android/app/build/outputs/apk/debug/app-debug.apk`
 ## Sürüm / APK
 
 ```bash
-# tag ile CI APK + release
-git tag hub-v1.0.0
-git push origin hub-v1.0.0
+npm install
+npx cap sync android
+cd android && ./gradlew assembleDebug
+# → android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Menü içeriği: `www/app-config.js`
+Menü içeriği: `www/app-config.js` (Capacitor) · GitHub Pages: `docs/`
