@@ -1,8 +1,8 @@
 {
   "name": "atlas-hub",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
-  "description": "Atlas Hub — tüm projeler ve DNCR Games için ana menü (web + APK)",
+  "description": "Atlas Hub \u2014 t\u00fcm projeler ve DNCR Games i\u00e7in ana men\u00fc (web + APK)",
   "scripts": {
     "android:add": "npx cap add android",
     "android:sync": "npx cap sync android",
