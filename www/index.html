@@ -86,8 +86,19 @@
         0 16px 36px rgba(0, 0, 0, 0.42),
         0 0 0 1px rgba(62, 207, 188, 0.3);
     }
+    .byline {
+      margin: 0.55rem 0 0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(238, 246, 244, 0.58);
+    }
+    .byline strong {
+      color: var(--accent-2);
+      font-weight: 700;
+    }
     h1 {
-      margin: 0.8rem 0 0.25rem;
+      margin: 0.55rem 0 0.25rem;
       font-family: var(--display);
       font-size: clamp(2rem, 8.5vw, 2.6rem);
       font-weight: 700;
@@ -259,6 +270,7 @@
   <main>
     <header class="brand">
       <img src="assets/logo.png" width="96" height="96" alt="Atlas Hub" />
+      <p class="byline">by <strong>DNCR Software</strong></p>
       <h1>Atlas Hub</h1>
       <p class="lede">Projelerini seç · oyunlar aşağıda</p>
     </header>
