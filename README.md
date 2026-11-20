@@ -37,4 +37,10 @@ Android hub APK açılışta GitHub Releases’i kontrol eder (`hub-v*` + `Atlas
 Yeni sürüm varsa MedyaAtlas tarzı diyalog → indir → kur. Elle:
 **Güncellemeyi kontrol et**.
 
-Menü: `www/app-config.js` · Pages: `docs/` · sürüm: `www/version.json`
+> **Önemli:** Web (`docs/` / GitHub Pages) anında güncellenir; Android APK ise
+> yalnızca yeni bir **Release** (`hub-vX.Y.Z` + `AtlasHub-X.Y.Z.apk`) yayınlanınca
+> güncelleme görür. `www/version.json` yükseltip APK release etmezseniz telefon
+> eski menüyü gösterir ama “Güncelsin” der — çünkü son yayınlanan APK hâlâ o sürüm.
+
+Menü: `www/app-config.js` · Pages: `docs/` · sürüm: `www/version.json`  
+Android `versionName` / `versionCode`: `android/app/build.gradle` (version.json ile aynı tut).
