@@ -43,14 +43,12 @@
     window.open(url, "_blank", "noopener");
   }
 
-  function packageUrl(packageId) {
-    return "package:" + packageId;
-  }
-
+  // Capacitor AppLauncher Android: url = ham paket adı (ör. com.rideatlas.rideatlas).
+  // "package:" öneki getPackageInfo’yu bozar → her zaman “kurulu değil” görünür.
   async function canLaunchPackage(packageId) {
     if (!packageId || !isCapacitor() || !plugins().AppLauncher) return false;
     try {
-      var res = await plugins().AppLauncher.canOpenUrl({ url: packageUrl(packageId) });
+      var res = await plugins().AppLauncher.canOpenUrl({ url: packageId });
       return !!(res && res.value);
     } catch (_) {
       return false;
@@ -60,8 +58,8 @@
   async function launchPackage(packageId) {
     if (!packageId || !plugins().AppLauncher) return false;
     try {
-      await plugins().AppLauncher.openUrl({ url: packageUrl(packageId) });
-      return true;
+      var res = await plugins().AppLauncher.openUrl({ url: packageId });
+      return !!(res && res.completed);
     } catch (_) {
       return false;
     }
