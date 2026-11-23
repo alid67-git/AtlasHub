@@ -1,5 +1,5 @@
 window.ATLAS_HUB = {
-  version: "1.3.1",
+  version: "1.3.2",
   githubOwner: "alid67-git",
   githubRepo: "AtlasHub",
   releaseTagPrefix: "hub-v",
@@ -97,14 +97,6 @@ window.ATLAS_HUB = {
       url: "https://github.com/alid67-git/GPX_Edit",
       mark: "GX",
       tone: "sky",
-    },
-    {
-      id: "isleyis",
-      name: "İşleyiş Tablosu",
-      blurb: "Güncel işleyiş",
-      url: "https://github.com/alid67-git/Guncel_Isleyis_Tablosu",
-      mark: "IT",
-      tone: "amber",
     },
   ],
   wipTools: [
