@@ -1,5 +1,5 @@
 window.ATLAS_HUB = {
-  version: "1.3.2",
+  version: "1.3.3",
   githubOwner: "alid67-git",
   githubRepo: "AtlasHub",
   releaseTagPrefix: "hub-v",
